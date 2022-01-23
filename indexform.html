@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style type="text/css">
+
+			   	body{
+			    padding: 0;
+			    background: #FBE7D6;
+			    background-size: cover;
+			    font-family: sans-serif;
+
+					}
+
+          #map{ 
+          	width:400px;
+          	height: 300px;
+          	position: relative;
+          	margin-top: 130px;
+          	margin-left: auto;
+          	margin-right: auto;
+          	
+          }
+
+          .form{margin-top: 50% ; position: absolute}
+
+          .submitbox{
+          	position: absolute;
+				    top: 50%;
+				    left: 50%;
+				    transform: translate(-50%,-50%);
+				    width: 500px;
+				    height: 80%;
+				    padding: 50px;
+				    border-radius: 10px;
+				    box-sizing: border-box;
+				    background: #EA9A8B;
+				    z-index: -5;
+          	}
+
+        	.submitbox input[type="text"]{
+				    position: relative;
+				    top: 150px;
+				    border: none;
+				    border-bottom: 1px solid #fff;
+				    background: transparent;
+				    outline: none;
+				    height: 40px;
+				    width: 250px;
+				    color: #fff;
+				    font-size: 16px;
+					}
+
+					.submitbox input[type="submit"]{
+					    position: relative;
+				    	top: 150px;
+				    	left: 40px;
+					    border: none;
+					    outline: none;
+					    height: 30px;
+					    width: 100px;
+					    color: #fff;
+					    font-size: 16px;
+					    background: #073763;
+					    cursor: pointer;
+					    border-radius: 20px;
+					}
+
+					.radiobutton {
+				    position: relative;
+				    top: 100px;
+				    color: #fff;
+				  }
+
+				  ::placeholder{
+          	color: #fff;
+          }
+
+				
+
+          
+    </style>
+    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js"></script>
+    <title>Save Marker Example</title>
+
+  </head>
+  <body>
+
+  <div id="map">
+  </div>
+
+	<script type = "text/javascript">   
+		//Function called to initialize / create the map.
+		//This is called when the page has loaded.
+		function initMap() {
+			var myLatlng = new google.maps.LatLng(35.65873402169619, 139.70314562525562);
+
+		  var mapProp = {
+		    center:myLatlng,
+		    zoom:16,
+		    mapTypeId:google.maps.MapTypeId.ROADMAP
+		      
+		  };
+		  var map=new google.maps.Map(document.getElementById("map"), mapProp);
+		    var marker = new google.maps.Marker({
+		      position: myLatlng,
+		      map: map,
+		      title: 'Hello World!',
+		      draggable:true  
+		  });
+		    document.getElementById('lat').value= 35.65873402169619
+		    document.getElementById('lng').value= 139.70314562525562  
+		    // marker drag event
+		    google.maps.event.addListener(marker,'drag',function(event) {
+		        document.getElementById('lat').value = event.latLng.lat();
+		        document.getElementById('lng').value = event.latLng.lng();
+		    });
+
+		    //marker drag event end
+		    google.maps.event.addListener(marker,'dragend',function(event) {
+		        document.getElementById('lat').value = event.latLng.lat();
+		        document.getElementById('lng').value = event.latLng.lng();
+
+		    });
+
+		  }
+		        
+		//Load the map when the page has finished loading.
+		google.maps.event.addDomListener(window, 'load', initMap);
+
+	</script>
+
+	<div class="submitbox">
+		<form 
+		  method="POST" 
+		  action="https://script.google.com/macros/s/AKfycbx1Cffl9jpW4x-smYmDRqYRReikutoRk49-qxwWjRaAxZ9h4UbYk8tZApMuNDL3Z3essw/exec"
+		  class="form"
+		>
+    
+	  <input type="hidden" name= 'Latitude' id= 'lat'>
+	  <input type="hidden" name= 'Longitude' id= 'lng'>
+	
+			<div class= "radiobutton">
+			<input type="radio" id="Choice1" name="Event" value="Positive" required>
+			<label for= "Choice1">ポジティブな出来事</label>
+			</div>
+			<div class="radiobutton">
+			<input type="radio" id="Choice2" name="Event" value="Negative" required>
+			<label for= "Choice2">ネガティブな出来事</label>
+			</div>
+
+			<div class="secondrow">
+			<input type="text" name="Description" placeholder="出来事について教えてください" id="Description" required>
+		  <input type="submit">
+
+		</div>
+
+		</form>
+	</div>
+
+
+	<script
+      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBOKWuuDw3K_FHy4tvpgMFJmRBuJKaTg7w&callback=initMap&libraries=&v=weekly"
+      async
+    ></script>
+
+  </body>
+
+</html>
